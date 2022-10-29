@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+class Node{
+
+public:
+int Data;
+Node *next;
+Node()
+{
+this->Data = Data;
+next = NULL;
+}
+};
+
+class List
+{
+public:
+    Node *head;
+    Node *tail;
+    Node *current;
+    List()
+    {
+        head = NULL;
+        tail = NULL;
+        current = NULL;
+    }
+    int gettop()
+    {
+        return head->Data;
+    }
+    void push(int num)
+    {
+    Node *temp = new Node;
+    temp->Data=num;
+    temp->next=NULL;
+    if(head==NULL)
+    {
+        head = temp;
+        tail = temp;
+    }
+    else
+    {
+    tail->next=temp;
+    tail = temp;
+    }
+    }
+    void settail_next(Node *tt)
+    {
+        tail->next = tt;
+    }
+    Node *getHead()
+    {
+        return head;
+    }
+    void display()
+    {
+        current = head;
+    while(current!=NULL)
+    {
+        cout <<" -> "<<current->Data;
+        current = current->next;
+    }
+    }
+    void asend()
+    {
+        int max = 0;
+        Node* ptr = new Node;
+        current = head;
+        while(current!=NULL)
+        {
+            ptr = current;
+            while(ptr!=NULL)
+            {
+            if(current->Data > ptr->Data)
+                {
+                max = current->Data;
+                current->Data = ptr->Data;
+                ptr->Data = max;
+                }
+            else{
+                 ptr = ptr->next;
+                 continue;
+            }
+            }
+            current = current->next;
+        }
+    }
+    void merge(List ll2)
+    {
+        tail->next=ll2.getHead();
+    }
+};
+int main()
+{
+    List l1,l2,l3;
+    l1.push(4);
+    l1.push(2);
+    l2.push(7);
+    l2.push(3);
+   // l1.push(7);
+   // l1.push(6);
+   // l1.push(1);
+   // l1.push(3);
+   //l1.display();
+    //l2.display();
+    l1.merge(l2);
+
+    //  cout << endl;
+    l1.display();
+    cout << endl;
+    l1.asend();
+    l1.display();
+
+    return 0;
+}
